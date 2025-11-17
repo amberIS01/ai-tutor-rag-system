@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎓 AI Tutor</h1>
+                <p>Upload a PDF and ask questions!</p>
+            </div>
+            <div class="status" id="status">
+                <span class="status-dot"></span>
+                <span class="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- PDF Upload Section -->
+        <div class="upload-section" id="uploadSection">
+            <div class="upload-container">
+                <div class="upload-icon">📄</div>
+                <h3>Upload Your Chapter PDF</h3>
+                <p>Upload any educational PDF to get started</p>
+                <input 
+                    type="file" 
+                    id="pdfInput" 
+                    accept=".pdf"
+                    style="display: none;"
+                >
+                <button id="selectPdfButton" class="select-pdf-button">
+                    Select PDF File
+                </button>
+                <button id="uploadPdfButton" class="upload-pdf-button" style="display: none;">
+                    Upload & Process
+                </button>
+                <div id="selectedFile" class="selected-file" style="display: none;"></div>
+                <div id="uploadProgress" class="upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="progress-text">Processing PDF...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container" id="chatContainer" style="display: none;">
+            <!-- Welcome Message will be added after upload -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-container" id="inputContainer" style="display: none;">
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    placeholder="Ask a question..."
+                    autocomplete="off"
+                    disabled
+                >
+                <button id="sendButton" class="send-button" disabled>
+                    <span class="button-text">Send</span>
+                    <span class="button-icon">➤</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loadingIndicator">
+        <div class="spinner"></div>
+        <p>Thinking...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

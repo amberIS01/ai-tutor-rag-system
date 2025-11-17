@@ -1,0 +1,148 @@
+{
+  "images": [
+    {
+      "id": "img_001",
+      "filename": "SchoolBellVibration.png",
+      "title": "School Bell Vibration",
+      "keywords": [
+        "bell",
+        "vibration",
+        "sound waves",
+        "hammer",
+        "school bell",
+        "sound production",
+        "waves",
+        "ringing",
+        "metal vibration"
+      ],
+      "description": "Diagram showing a school bell being struck by a hammer, producing vibrations that create sound waves radiating outward in concentric circles. Illustrates how mechanical vibration of solid objects produces sound.",
+      "topics": [
+        "sound production",
+        "vibration",
+        "sound waves",
+        "mechanical energy"
+      ]
+    },
+    {
+      "id": "img_002",
+      "filename": "VocalCordsDiagram.png",
+      "title": "Vocal Cords Diagram",
+      "keywords": [
+        "vocal cords",
+        "voice",
+        "human sound",
+        "larynx",
+        "air from lungs",
+        "vibrating air",
+        "speech",
+        "sound production",
+        "human anatomy"
+      ],
+      "description": "Anatomical diagram of vocal cords showing how air from the lungs passes through the vocal cords, causing them to vibrate and produce sound. Demonstrates human voice production mechanism.",
+      "topics": [
+        "human sound production",
+        "vocal cords",
+        "vibration",
+        "voice",
+        "anatomy"
+      ]
+    },
+    {
+      "id": "img_003",
+      "filename": "VibrationOfRubberBand.png",
+      "title": "Rubber Band Vibration",
+      "keywords": [
+        "rubber band",
+        "vibration",
+        "plucking",
+        "oscillation",
+        "back and forth motion",
+        "stretched",
+        "sound production",
+        "elastic vibration"
+      ],
+      "description": "Diagram of a stretched rubber band showing plucking action and the resulting back-and-forth vibrational motion that produces sound. Illustrates how elastic materials vibrate when plucked.",
+      "topics": [
+        "vibration",
+        "oscillation",
+        "sound production",
+        "elastic materials"
+      ]
+    },
+    {
+      "id": "img_004",
+      "filename": "ReflectionOfSound.png",
+      "title": "Reflection of Sound Experiment",
+      "keywords": [
+        "reflection",
+        "sound reflection",
+        "echo",
+        "experiment",
+        "cardboard tubes",
+        "plywood",
+        "angle of incidence",
+        "angle of reflection",
+        "stopwatch"
+      ],
+      "description": "Experimental setup demonstrating sound reflection using cardboard tubes positioned at angles on a hard plywood surface with soft wood base. Shows how sound reflects similar to light with equal angles of incidence and reflection.",
+      "topics": [
+        "sound reflection",
+        "echo",
+        "sound behavior",
+        "experiments",
+        "angles"
+      ]
+    },
+    {
+      "id": "img_005",
+      "filename": "CompressionAndRefraction.png",
+      "title": "Sound Wave Compression and Rarefaction",
+      "keywords": [
+        "compression",
+        "rarefaction",
+        "sound waves",
+        "tuning fork",
+        "longitudinal waves",
+        "wave propagation",
+        "air molecules",
+        "frequency",
+        "wavelength"
+      ],
+      "description": "Diagram showing a tuning fork producing sound waves with regions of compression (C) and rarefaction (R). Illustrates longitudinal wave nature of sound with varying air pressure regions traveling in the direction of wave propagation.",
+      "topics": [
+        "sound waves",
+        "compression",
+        "rarefaction",
+        "longitudinal waves",
+        "wave propagation"
+      ]
+    },
+    {
+      "id": "img_006",
+      "filename": "MusicalInstrumentsVibrationChart.png",
+      "title": "Musical Instruments Vibration Chart",
+      "keywords": [
+        "musical instruments",
+        "sitar",
+        "flute",
+        "drum",
+        "vibrating strings",
+        "vibrating air",
+        "vibrating membrane",
+        "sound production",
+        "music",
+        "instruments"
+      ],
+      "description": "Comparison chart showing three types of musical instruments: sitar with vibrating strings, flute with vibrating air column, and drum with vibrating membrane. Demonstrates different mechanisms of sound production in musical instruments.",
+      "topics": [
+        "musical instruments",
+        "sound production",
+        "vibration types",
+        "strings",
+        "air columns",
+        "membranes"
+      ]
+    }
+  ]
+}
+
