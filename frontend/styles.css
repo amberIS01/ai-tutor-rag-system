@@ -20,6 +20,9 @@
     --shadow: rgba(0, 0, 0, 0.1);
     --user-message-bg: #4F46E5;
     --bot-message-bg: #F3F4F6;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --error: #EF4444;
 }
 
 body {
