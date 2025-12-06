@@ -1,8 +1,10 @@
 // ============================================================================
 // AI Tutor Chat Application
+// Version: 1.0.0
 // ============================================================================
 
 const API_BASE_URL = 'http://localhost:8000';
+const MAX_MESSAGE_LENGTH = 1000;
 
 // DOM Elements
 const chatContainer = document.getElementById('chatContainer');
