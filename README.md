@@ -126,6 +126,19 @@ python -m http.server 5500
 
 [Link to demo video will be added here]
 
+## ⭐ Features
+
+- 🚀 Fast PDF processing with PyMuPDF
+- 🧠 Semantic search using FAISS vector database
+- 🤖 AI-powered answers with Mistral Small 24B
+- 🖼️ Automatic image selection and display
+- 📱 Responsive mobile-friendly design
+- ✅ File validation and size limits
+- 🔒 Secure API key management
+- 📊 Real-time health monitoring
+- ⚡ Sub-second query responses
+- 🎯 Anti-hallucination measures
+
 ## 🤝 Contributing
 
 This is an educational project. Feel free to fork and enhance!
