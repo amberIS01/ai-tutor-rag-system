@@ -440,6 +440,16 @@ body {
    Responsive Design
    ============================================================================ */
 
+/* Accessibility improvements */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+button:focus-visible {
+    outline: 3px solid var(--primary-color);
+}
+
 @media (max-width: 768px) {
     .container {
         height: 100vh;
