@@ -43,6 +43,10 @@ class Config:
     TOP_K_CHUNKS = 3  # Number of chunks to retrieve
     TOP_K_IMAGES = 1  # Number of images to retrieve
     
+    # File upload settings
+    MAX_FILE_SIZE_MB = 50  # Maximum PDF size in MB
+    ALLOWED_EXTENSIONS = ['.pdf']
+    
     @classmethod
     def validate(cls):
         """Validate required configuration"""
