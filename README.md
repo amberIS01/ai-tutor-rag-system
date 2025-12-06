@@ -98,6 +98,17 @@ python -m http.server 5500
    - Ask questions
    - Get answers with images
 
+### Quick Start with Docker (Alternative)
+
+```bash
+# Build and run with docker-compose
+docker-compose up --build
+
+# Access:
+# Frontend: http://localhost:5500
+# Backend: http://localhost:8000
+```
+
 ## 🛠️ Technologies Used
 
 - **PyMuPDF** - Fast PDF text extraction
