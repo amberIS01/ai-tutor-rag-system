@@ -122,7 +122,7 @@ Instructions: Answer this question using ONLY the information provided in the co
                     "temperature": 0.7,
                     "max_tokens": 500
                 },
-                timeout=30
+                timeout=60  # Increased timeout for reliability
             )
             
             response.raise_for_status()
