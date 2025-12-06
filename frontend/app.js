@@ -276,6 +276,11 @@ function showLoading(show) {
 
 function scrollToBottom() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
+    // Smooth scroll for better UX
+    chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 
 // ============================================================================
