@@ -46,3 +46,5 @@ def setup_logger(name: str = "ai_tutor", level: int = logging.INFO) -> logging.L
 # Create default logger
 logger = setup_logger()
 
+
+
