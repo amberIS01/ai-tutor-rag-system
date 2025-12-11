@@ -1,16 +1,20 @@
 """
 Compression Module
-Data compression utilities
+Data compression utilities with response compression support
 """
 
 import gzip
 import zlib
 from typing import Tuple
 from logger import logger
+from starlette.middleware.gzip import GZipMiddleware
 
 
 class Compressor:
     """Data compression utilities"""
+    
+    # Minimum response size for compression (bytes)
+    MIN_SIZE_FOR_COMPRESSION = 1000
     
     @staticmethod
     def compress_gzip(data: bytes) -> Tuple[bool, bytes]:
