@@ -12,7 +12,7 @@ backend/
 ├── pdf_processor.py            # PDF extraction & chunking
 ├── test_api.py                 # API testing script
 ├── requirements.txt            # Python dependencies
-├── env.example.txt            # Environment variables template
+├── .env.example               # Environment variables template
 └── data/
     ├── chunks.json            # Text chunks
     ├── image_metadata.json    # Image descriptions
@@ -39,7 +39,7 @@ Create a `.env` file in the `backend/` directory:
 
 ```bash
 # Copy from template
-cp env.example.txt .env
+cp .env.example .env
 
 # Edit .env and add your API key
 OPENROUTER_API_KEY=sk-or-v1-your-actual-key-here
