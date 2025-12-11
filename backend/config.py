@@ -47,6 +47,10 @@ class Config:
     MAX_FILE_SIZE_MB = 50  # Maximum PDF size in MB
     ALLOWED_EXTENSIONS = ['.pdf']
     
+    # Request timeout settings
+    REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", 30))  # seconds
+    OPENROUTER_TIMEOUT = int(os.getenv("OPENROUTER_TIMEOUT", 60))  # seconds
+    
     @classmethod
     def validate(cls):
         """Validate required configuration"""
