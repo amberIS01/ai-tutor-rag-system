@@ -31,19 +31,31 @@ class ErrorHandler {
     /**
      * Get user-friendly error message
      * @param {Error} error - Error object
+     * @param {Object} options - Additional options
      * @returns {string} User-friendly message
      */
-    getUserMessage(error) {
+    getUserMessage(error, options = {}) {
         const messageMap = {
-            'NetworkError': 'Network error. Please check your connection.',
-            'TypeError': 'An unexpected error occurred. Please try again.',
-            'SyntaxError': 'Invalid response from server. Please try again.',
-            'AbortError': 'Request timeout. Please try again.'
+            'NetworkError': 'Network error. Please check your internet connection and try again.',
+            'TypeError': 'An unexpected error occurred. Please refresh the page and try again.',
+            'SyntaxError': 'Invalid response from server. The server may be experiencing issues.',
+            'AbortError': 'Request timed out. The server is taking too long to respond.',
+            'RateLimitError': 'Too many requests. Please wait a moment and try again.',
+            'ValidationError': 'Invalid input. Please check your input and try again.',
+            'AuthenticationError': 'Authentication failed. Please log in again.',
+            'ServerError': 'Server error. Please try again later.'
         };
+
+        // Check for HTTP status codes
+        if (options.statusCode) {
+            if (options.statusCode === 429) return messageMap['RateLimitError'];
+            if (options.statusCode === 401 || options.statusCode === 403) return messageMap['AuthenticationError'];
+            if (options.statusCode >= 500) return messageMap['ServerError'];
+        }
 
         return messageMap[error.constructor.name] || 
                error.message || 
-               'An unexpected error occurred.';
+               'An unexpected error occurred. Please try again.';
     }
 
     /**
