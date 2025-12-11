@@ -9,42 +9,49 @@ from collections import defaultdict
 
 
 class RateLimiter:
-    """Token bucket rate limiter"""
+    """Token bucket rate limiter with per-user tracking"""
     
     def __init__(self, requests_per_minute: int = 60):
         self.requests_per_minute = requests_per_minute
         self.window_size = 60  # seconds
         self.requests: Dict[str, list] = defaultdict(list)
+        self.user_requests: Dict[str, list] = defaultdict(list)  # Track per user
     
-    def is_allowed(self, client_id: str) -> Tuple[bool, dict]:
-        """Check if request is allowed for client"""
+    def is_allowed(self, client_id: str, user_id: str = None) -> Tuple[bool, dict]:
+        """Check if request is allowed for client or user"""
         now = datetime.now()
         window_start = now - timedelta(seconds=self.window_size)
         
+        # Check user-specific limit if user_id provided
+        check_id = user_id if user_id else client_id
+        request_store = self.user_requests if user_id else self.requests
+        
         # Remove old requests outside window
-        self.requests[client_id] = [
-            req_time for req_time in self.requests[client_id]
+        request_store[check_id] = [
+            req_time for req_time in request_store[check_id]
             if req_time > window_start
         ]
         
-        request_count = len(self.requests[client_id])
+        request_count = len(request_store[check_id])
         
         if request_count >= self.requests_per_minute:
-            oldest_request = self.requests[client_id][0]
+            oldest_request = request_store[check_id][0]
             reset_time = oldest_request + timedelta(seconds=self.window_size)
             wait_seconds = (reset_time - now).total_seconds()
             
             return False, {
                 "remaining": 0,
-                "reset_in_seconds": max(0, int(wait_seconds))
+                "reset_in_seconds": max(0, int(wait_seconds)),
+                "user_id": user_id
             }
         
         # Add new request
-        self.requests[client_id].append(now)
+        request_store[check_id].append(now)
         
         return True, {
             "remaining": self.requests_per_minute - request_count - 1,
-            "reset_in_seconds": self.window_size
+            "reset_in_seconds": self.window_size,
+            "user_id": user_id
         }
 
 
