@@ -30,6 +30,32 @@ class PDFProcessor:
             separators=["\n\n", "\n", ". ", " ", ""]
         )
     
+    def extract_metadata_from_pdf(self, pdf_path: str) -> Dict:
+        """
+        Extract enhanced metadata from PDF
+        
+        Args:
+            pdf_path: Path to PDF file
+            
+        Returns:
+            Dictionary with PDF metadata
+        """
+        doc = fitz.open(pdf_path)
+        metadata = {
+            "title": doc.metadata.get("title", "Unknown"),
+            "author": doc.metadata.get("author", "Unknown"),
+            "subject": doc.metadata.get("subject", ""),
+            "keywords": doc.metadata.get("keywords", ""),
+            "creator": doc.metadata.get("creator", ""),
+            "producer": doc.metadata.get("producer", ""),
+            "creation_date": doc.metadata.get("creationDate", ""),
+            "modification_date": doc.metadata.get("modDate", ""),
+            "page_count": len(doc),
+            "file_size": os.path.getsize(pdf_path)
+        }
+        doc.close()
+        return metadata
+
     def extract_text_from_pdf(self, pdf_path: str) -> str:
         """
         Extract all text from a PDF file using PyMuPDF
