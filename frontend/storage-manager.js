@@ -1,7 +1,9 @@
-// Frontend storage utilities
+// Frontend storage utilities with caching support
 class StorageManager {
     constructor(prefix = 'ai-tutor') {
         this.prefix = prefix;
+        this.cache = new Map();
+        this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
     }
 
     /**
@@ -30,18 +32,45 @@ class StorageManager {
     }
 
     /**
-     * Get from localStorage
+     * Get from localStorage with caching
      * @param {string} key - Storage key
      * @param {*} defaultValue - Default value if not found
+     * @param {boolean} useCache - Use in-memory cache
      */
-    get(key, defaultValue = null) {
+    get(key, defaultValue = null, useCache = true) {
         try {
+            // Check cache first
+            if (useCache && this.cache.has(key)) {
+                const cached = this.cache.get(key);
+                if (Date.now() - cached.timestamp < this.cacheTimeout) {
+                    return cached.value;
+                }
+                this.cache.delete(key);
+            }
+
             const item = localStorage.getItem(this.getKey(key));
-            return item ? JSON.parse(item) : defaultValue;
+            const value = item ? JSON.parse(item) : defaultValue;
+
+            // Update cache
+            if (useCache && value !== defaultValue) {
+                this.cache.set(key, {
+                    value,
+                    timestamp: Date.now()
+                });
+            }
+
+            return value;
         } catch (error) {
             console.error('Storage get error:', error);
             return defaultValue;
         }
+    }
+
+    /**
+     * Clear cache
+     */
+    clearCache() {
+        this.cache.clear();
     }
 
     /**
