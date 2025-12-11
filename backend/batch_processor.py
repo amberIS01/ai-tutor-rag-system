@@ -9,17 +9,21 @@ from logger import logger
 
 
 class BatchProcessor:
-    """Process items in batches"""
+    """Process items in batches with optimizations"""
     
     def __init__(
         self,
         batch_size: int = 100,
-        max_wait_ms: int = 5000
+        max_wait_ms: int = 5000,
+        enable_parallel: bool = True
     ):
         self.batch_size = batch_size
         self.max_wait_ms = max_wait_ms
+        self.enable_parallel = enable_parallel
         self.items: List[Any] = []
         self.last_process_time = datetime.now()
+        self.processed_count = 0
+        self.failed_count = 0
     
     def add_item(self, item: Any):
         """Add item to batch"""
@@ -37,7 +41,7 @@ class BatchProcessor:
         return False
     
     async def process(self, processor_func: Callable) -> List[Any]:
-        """Process batch"""
+        """Process batch with optional parallelization"""
         if not self.items:
             return []
         
@@ -46,16 +50,41 @@ class BatchProcessor:
         self.last_process_time = datetime.now()
         
         try:
-            if hasattr(processor_func, '__call__'):
-                import asyncio
+            import asyncio
+            
+            if self.enable_parallel and len(batch) > 1:
+                # Process items in parallel
+                if asyncio.iscoroutinefunction(processor_func):
+                    tasks = [processor_func(item) for item in batch]
+                    result = await asyncio.gather(*tasks, return_exceptions=True)
+                    # Filter out exceptions
+                    result = [r for r in result if not isinstance(r, Exception)]
+                else:
+                    # Sequential processing for sync functions
+                    result = [processor_func(item) for item in batch]
+            else:
+                # Process as single batch
                 if asyncio.iscoroutinefunction(processor_func):
                     result = await processor_func(batch)
                 else:
                     result = processor_func(batch)
+            
+            self.processed_count += len(batch)
             return result
         except Exception as e:
+            self.failed_count += len(batch)
             logger.error(f"Batch processing failed: {str(e)}")
             return []
+    
+    def get_statistics(self) -> dict:
+        """Get processing statistics"""
+        return {
+            "processed": self.processed_count,
+            "failed": self.failed_count,
+            "pending": len(self.items),
+            "success_rate": self.processed_count / (self.processed_count + self.failed_count) 
+                           if (self.processed_count + self.failed_count) > 0 else 0
+        }
     
     def get_pending_count(self) -> int:
         """Get number of pending items"""
