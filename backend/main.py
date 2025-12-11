@@ -15,11 +15,14 @@ from config import config
 from rag_service import get_rag_service
 from pdf_processor import PDFProcessor
 
-# Initialize FastAPI app
+# Initialize FastAPI app with API versioning
 app = FastAPI(
     title="AI Tutor RAG System",
     description="RAG-based AI tutor with image retrieval for educational content",
-    version="1.0.0"
+    version="1.0.0",
+    openapi_url="/api/v1/openapi.json",
+    docs_url="/api/v1/docs",
+    redoc_url="/api/v1/redoc"
 )
 
 # Configure CORS
