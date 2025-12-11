@@ -1,6 +1,6 @@
 """
 Health Check Service
-Extended health monitoring
+Extended health monitoring with detailed endpoints
 """
 
 from typing import Dict, Any
@@ -10,12 +10,13 @@ from logger import logger
 
 
 class HealthCheckService:
-    """Comprehensive health check service"""
+    """Comprehensive health check service with enhanced monitoring"""
     
     def __init__(self):
         self.start_time = datetime.now()
         self.last_check = None
         self.check_history = []
+        self.max_history = 100
     
     def check_cpu_health(self) -> Dict[str, Any]:
         """Check CPU health"""
@@ -107,11 +108,35 @@ class HealthCheckService:
         self.last_check = health_status
         self.check_history.append(health_status)
         
-        # Keep last 100 checks
-        if len(self.check_history) > 100:
+        # Keep last max_history checks
+        if len(self.check_history) > self.max_history:
             self.check_history.pop(0)
         
         return health_status
+    
+    def get_detailed_status(self) -> Dict[str, Any]:
+        """Get detailed health status with history"""
+        return {
+            "current": self.last_check or self.perform_health_check(),
+            "history_count": len(self.check_history),
+            "start_time": self.start_time.isoformat(),
+            "uptime_seconds": (datetime.now() - self.start_time).total_seconds()
+        }
+    
+    def get_readiness(self) -> Dict[str, bool]:
+        """Check if service is ready to accept traffic"""
+        health = self.perform_health_check()
+        return {
+            "ready": health["overall_status"] != "unhealthy",
+            "status": health["overall_status"]
+        }
+    
+    def get_liveness(self) -> Dict[str, bool]:
+        """Check if service is alive"""
+        return {
+            "alive": True,
+            "timestamp": datetime.now().isoformat()
+        }
 
 
 # Global health check service
