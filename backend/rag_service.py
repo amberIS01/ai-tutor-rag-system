@@ -131,11 +131,21 @@ Instructions: Answer this question using ONLY the information provided in the co
             answer = result["choices"][0]["message"]["content"]
             return answer
             
+        except requests.exceptions.Timeout:
+            print(f"⏱️ Timeout calling OpenRouter API")
+            return self._generate_fallback_answer(question, context_chunks, "timeout")
+            
         except requests.exceptions.RequestException as e:
             print(f"❌ Error calling OpenRouter API: {e}")
-            
-            # Fallback: Return context-based answer
-            fallback_answer = f"""I'm having trouble connecting to the AI service right now. 
+            return self._generate_fallback_answer(question, context_chunks, "error")
+    
+    def _generate_fallback_answer(self, question: str, context_chunks: List[Dict], reason: str) -> str:
+        """Generate fallback answer when API fails"""
+        if not context_chunks:
+            return "I'm having trouble processing your question right now. Please try again."
+        
+        message = "connecting to the AI service" if reason == "error" else "getting a response"
+        fallback_answer = f"""I'm having trouble {message} right now. 
 
 However, based on the relevant section from your textbook:
 
@@ -143,7 +153,7 @@ However, based on the relevant section from your textbook:
 
 This should help answer your question about: {question}"""
             
-            return fallback_answer
+        return fallback_answer
     
     def answer_question(self, question: str) -> Dict:
         """
