@@ -116,7 +116,44 @@ docker-compose up --build
 - **Sentence-Transformers** - Free embedding generation
 - **FAISS** - Efficient vector similarity search
 - **FastAPI** - Modern Python web framework
-- **OpenAI/Groq API** - LLM for answer generation
+- **OpenRouter API** - LLM for answer generation
+
+## 📚 API Examples
+
+### Upload PDF
+```bash
+curl -X POST http://localhost:8000/upload \
+  -F "file=@Sound.pdf"
+```
+
+### Ask Question
+```bash
+curl -X POST http://localhost:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What causes sound?", "topic_id": "sound"}'
+```
+
+### Health Check
+```bash
+curl http://localhost:8000/health/readiness
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+- `OPENROUTER_API_KEY` - Your OpenRouter API key (required)
+- `MODEL_NAME` - LLM model to use (default: mistralai/mistral-small-3.2-24b-instruct:free)
+- `HOST` - Server host (default: 0.0.0.0)
+- `PORT` - Server port (default: 8000)
+- `REQUEST_TIMEOUT` - Request timeout in seconds (default: 30)
+- `OPENROUTER_TIMEOUT` - OpenRouter API timeout (default: 60)
+
+### Advanced Features
+- **Rate Limiting**: 60 requests per minute per user
+- **Request Timeout**: Configurable timeout for long-running operations
+- **Health Checks**: `/health/readiness` and `/health/liveness` endpoints
+- **Metrics**: `/metrics` endpoint for monitoring
+- **API Versioning**: `/api/v1/` prefix for all endpoints
 
 ## 📝 Implementation Status
 
