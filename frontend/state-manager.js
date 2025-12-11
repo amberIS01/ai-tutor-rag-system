@@ -5,6 +5,8 @@ class StateManager {
             currentFile: null,
             uploadProgress: 0,
             isProcessing: false,
+            isLoading: false,
+            loadingMessage: '',
             chatHistory: [],
             uploadedFiles: [],
             apiStatus: 'unknown',
@@ -84,6 +86,18 @@ class StateManager {
         const updated = { ...this.state.userPreferences, ...preferences };
         localStorage.setItem('userPreferences', JSON.stringify(updated));
         this.setState({ userPreferences: updated });
+    }
+
+    /**
+     * Set loading state
+     * @param {boolean} isLoading - Loading state
+     * @param {string} message - Loading message
+     */
+    setLoading(isLoading, message = '') {
+        this.setState({ 
+            isLoading, 
+            loadingMessage: message 
+        });
     }
 
     /**
