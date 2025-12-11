@@ -44,6 +44,18 @@ class ChatRequest(BaseModel):
     """Request model for chat endpoint"""
     question: str
     topic_id: Optional[str] = "sound"  # For now, we only have Sound topic
+    
+    class Config:
+        str_min_length = 1
+        str_max_length = 1000
+    
+    def validate_question(self):
+        """Validate question input"""
+        if not self.question or not self.question.strip():
+            raise ValueError("Question cannot be empty")
+        if len(self.question) > 1000:
+            raise ValueError("Question too long (max 1000 characters)")
+        return True
 
 
 class ChatResponse(BaseModel):
